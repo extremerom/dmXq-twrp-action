@@ -84,7 +84,7 @@ jobs:
     - name: Clone device tree
       run: |
         cd ${GITHUB_WORKSPACE}/fox_12.1
-        git clone -b android-12.1 https://github.com/EduardoA3677/android_device_samsung_${{ matrix.target }}.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
+        git clone -b OrangeFox https://github.com/EduardoA3677/android_device_samsung_${{ matrix.target }}.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
         
     - name: Clone common tree
       run: |
