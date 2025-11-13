@@ -86,8 +86,8 @@ compress_image() {
     if [[ -f "$input_path" ]]; then
         mkdir -p "$output_dir"
         info "Compressing ${image_name}.img to ${output_path}"
-        rm -rf out/target/product/${DEVICE}/${image_name}.img.lz4
-        lz4 -B6 --content-size "$input_path" "$output_path" > /dev/null 2>&1 || error "Compression failed for ${image_name}.img" > /dev/null 2>&1
+        rm -rf "out/target/product/${DEVICE}/${image_name}.img.lz4"
+        lz4 -B6 --content-size "$input_path" "$output_path" > /dev/null 2>&1 || error "Compression failed for ${image_name}.img"
         info "Compression complete: ${output_path}"
     else
         warn "Missing file: ${input_path}, skipping compression"
