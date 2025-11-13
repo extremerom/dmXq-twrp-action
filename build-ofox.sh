@@ -167,7 +167,7 @@ info "Lunching target: twrp_${DEVICE}-eng"
 lunch "twrp_${DEVICE}-eng" || error "Lunch failed for device: $DEVICE"
 
 info "Building: $TARGET"
-make -j"$(nproc)" "$TARGET" || error "Build failed for target: $TARGET"
+mka -j"$(nproc)" adbd "$TARGET" || error "Build failed for target: $TARGET"
 
 # Start compression and packaging according to target
 case "$TARGET" in
