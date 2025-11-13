@@ -68,6 +68,7 @@ jobs:
       run: |
         export HOME=${GITHUB_WORKSPACE}
         cd ${GITHUB_WORKSPACE}
+        pwd
         chmod +x *
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -81,11 +82,15 @@ jobs:
     - name: Clone device tree
       run: |
         cd ${GITHUB_WORKSPACE}/fox_12.1
+        ls -la
+        pwd
         git clone -b OrangeFox https://github.com/extremerom/android_device_samsung_${{ matrix.target }}.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
         
     - name: Clone common tree
       run: |
         cd ${GITHUB_WORKSPACE}/fox_12.1
+        ls -la
+        pwd
         git clone -b android-12.1 https://github.com/extremerom/android_device_samsung_sm8550-common.git device/samsung/sm8550-common > /dev/null 2>&1
     
     - name: Setup ccache before build
@@ -103,9 +108,13 @@ jobs:
       id: twrp
       run: |
         cd ${GITHUB_WORKSPACE}
+        ls -la
+        pwd
         chmod +x build-ofox.sh
         cp build-ofox.sh  ${GITHUB_WORKSPACE}/fox_12.1/build-ofox.sh
         cd ${GITHUB_WORKSPACE}/fox_12.1
+        ls -la
+        pwd
         ./build-ofox.sh ${{ matrix.target }} 1
       continue-on-error: true
 
