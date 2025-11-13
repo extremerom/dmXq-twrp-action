@@ -161,7 +161,17 @@ fi
 
 info "Setting up build environment..."
 [[ -f build/envsetup.sh ]] || error "Missing build/envsetup.sh"
-source build/envsetup.sh || error "Failed to source build environment."
+
+# Temporarily disable exit on error for sourcing envsetup.sh
+# as it may contain non-critical commands that return non-zero
+set +e
+source build/envsetup.sh
+source_result=$?
+set -e
+
+if [[ $source_result -ne 0 ]]; then
+    warn "build/envsetup.sh returned non-zero exit code, but continuing..."
+fi
 
 info "Lunching target: twrp_${DEVICE}-eng"
 lunch "twrp_${DEVICE}-eng" || error "Lunch failed for device: $DEVICE"
