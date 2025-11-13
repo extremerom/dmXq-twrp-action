@@ -8,7 +8,7 @@ on:
   
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: depot-ubuntu-24.04-32
 
     environment:
       name: /dev/null
@@ -33,9 +33,6 @@ jobs:
     - name: Check out
       uses: actions/checkout@v4
 
-    - name: Cleanup
-      uses: rokibhasansagar/slimhub_actions@main
-    
     - name: Set TimeZones
       run: |
         sudo timedatectl set-timezone Asia/Ho_Chi_Minh
