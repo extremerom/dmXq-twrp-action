@@ -68,7 +68,6 @@ jobs:
       run: |
         export HOME=${GITHUB_WORKSPACE}
         cd ${GITHUB_WORKSPACE}
-        pwd
         chmod +x *
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
@@ -82,15 +81,11 @@ jobs:
     - name: Clone device tree
       run: |
         cd ${GITHUB_WORKSPACE}/fox_12.1
-        ls -la
-        pwd
         git clone -b OrangeFox https://github.com/extremerom/android_device_samsung_${{ matrix.target }}.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
         
     - name: Clone common tree
       run: |
         cd ${GITHUB_WORKSPACE}/fox_12.1
-        ls -la
-        pwd
         git clone -b android-12.1 https://github.com/extremerom/android_device_samsung_sm8550-common.git device/samsung/sm8550-common > /dev/null 2>&1
     
     - name: Setup ccache before build
@@ -131,8 +126,10 @@ jobs:
     - name: Publish to github
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ steps.var.outputs.Outdir }}/OrangeFox_R12.1-${{ matrix.target }}.img.tar
-        name: Unofficial Release
+        files: | 
+          ${{ steps.var.outputs.Outdir }}/OrangeFox_R12.1-${{ matrix.target }}.img.tar
+          ${{ steps.var.outputs.Outdir }}/OrangeFox-R11.3-Beta-dm2q.zip
+        name: OrangeFox Release
         tag_name: ${{ github.run_id }}
         body: |
           - ${{ steps.var.outputs.date }}
