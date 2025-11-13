@@ -105,7 +105,7 @@ jobs:
         cd ${GITHUB_WORKSPACE}
         chmod +x build-ofox.sh
         cp build-ofox.sh  ${GITHUB_WORKSPACE}/fox_12.1/build-ofox.sh
-        cd fox_12.1
+        cd ${GITHUB_WORKSPACE}/fox_12.1
         ./build-ofox.sh ${{ matrix.target }} 1
       continue-on-error: true
 
