@@ -128,7 +128,9 @@ jobs:
       with:
         files: | 
           ${{ steps.var.outputs.Outdir }}/OrangeFox_R12.1-${{ matrix.target }}.img.tar
-          ${{ steps.var.outputs.Outdir }}/OrangeFox-R11.3-Beta-dm2q.zip
+          ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.zip
+          ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.img
+          ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.md5
         name: OrangeFox Release
         tag_name: ${{ github.run_id }}
         body: |
