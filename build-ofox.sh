@@ -163,8 +163,8 @@ info "Setting up build environment..."
 [[ -f build/envsetup.sh ]] || error "Missing build/envsetup.sh"
 source build/envsetup.sh || error "Failed to source build environment."
 
-info "Lunching target: twrp_${DEVICE}-eng"
-lunch "twrp_${DEVICE}-eng" || error "Lunch failed for device: $DEVICE"
+info "Lunching target: omni_${DEVICE}-eng"
+lunch "omni_${DEVICE}-eng" || error "Lunch failed for device: $DEVICE"
 
 info "Building: $TARGET"
 mka -j"$(nproc)" adbd "$TARGET" || error "Build failed for target: $TARGET"
