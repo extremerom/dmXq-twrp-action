@@ -123,6 +123,8 @@ jobs:
     - name: Set variables
       run: |
         echo "date=$(TZ=Asia/Ho_Chi_Minh date +%Y-%m-%d-%H:%M:%S)" >> $GITHUB_OUTPUT
+        echo "timestamp=$(TZ=Asia/Ho_Chi_Minh date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
+        echo "readable_date=$(TZ=Asia/Ho_Chi_Minh date '+%B %d, %Y at %H:%M:%S %Z')" >> $GITHUB_OUTPUT
         echo "Outdir=${GITHUB_WORKSPACE}/fox_12.1" >> $GITHUB_OUTPUT
       id: var
 
@@ -130,13 +132,47 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: | 
-          ${{ steps.var.outputs.Outdir }}/OrangeFox_R12.1-${{ matrix.target }}.img.tar
+          ${{ steps.var.outputs.Outdir }}/OrangeFox_R12.1-${{ matrix.target }}-*.img.tar
           ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.zip
           ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.img
           ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.md5
-        name: OrangeFox Release
-        tag_name: ${{ github.run_id }}
+        name: OrangeFox Recovery - Build ${{ steps.var.outputs.timestamp }}
+        tag_name: orangefox-${{ steps.var.outputs.timestamp }}
         body: |
-          - ${{ steps.var.outputs.date }}
+          # 🦊 OrangeFox Recovery - Unofficial Build
+          
+          ## 🔧 Build Information
+          - **Device**: Samsung Galaxy S23 (${{ matrix.target }})
+          - **Recovery**: OrangeFox R12.1
+          - **Build Date**: ${{ steps.var.outputs.readable_date }}
+          - **Build ID**: ${{ github.run_id }}
+          
+          ## 📦 Package Contents
+          - **`.tar` file**: For flashing with Odin (Samsung devices)
+          - **`.zip` file**: For flashing via recovery
+          - **`.img` file**: Raw recovery image
+          - **`.md5` file**: MD5 checksum for verification
+          
+          ## 📥 Installation Methods
+          
+          ### Method 1: Odin (Windows)
+          1. Download the `.tar` file
+          2. Extract to get the `.img.lz4` file
+          3. Flash using Odin
+          
+          ### Method 2: Recovery
+          1. Download the `.zip` file
+          2. Flash via current recovery
+          
+          ### Method 3: Fastboot
+          1. Download and extract the `.img` file
+          2. Use `fastboot flash recovery orangefox.img`
+          
+          ## ⚠️ Disclaimer
+          This is an **unofficial** build. Use at your own risk.
+          Always backup your data before flashing!
+          
+          ---
+          *Built with ❤️ by GitHub Actions*
       env:
         GITHUB_TOKEN: ${{ secrets.TEST }}

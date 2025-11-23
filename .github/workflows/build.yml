@@ -119,16 +119,35 @@ jobs:
     - name: Set variables
       run: |
         echo "date=$(TZ=Asia/Ho_Chi_Minh date +%Y-%m-%d-%H:%M:%S)" >> $GITHUB_OUTPUT
+        echo "timestamp=$(TZ=Asia/Ho_Chi_Minh date +%Y%m%d-%H%M%S)" >> $GITHUB_OUTPUT
+        echo "readable_date=$(TZ=Asia/Ho_Chi_Minh date '+%B %d, %Y at %H:%M:%S %Z')" >> $GITHUB_OUTPUT
         echo "Outdir=${GITHUB_WORKSPACE}" >> $GITHUB_OUTPUT
       id: var
 
     - name: Publish to github
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ steps.var.outputs.Outdir }}/twrp-3.7.1_12-0-${{ matrix.target }}.img.tar
-        name: Unofficial Release
-        tag_name: ${{ github.run_id }}
+        files: ${{ steps.var.outputs.Outdir }}/twrp-3.7.1_12-0-${{ matrix.target }}-*.img.tar
+        name: TWRP Recovery - Build ${{ steps.var.outputs.timestamp }}
+        tag_name: twrp-${{ steps.var.outputs.timestamp }}
         body: |
-          - ${{ steps.var.outputs.date }}
+          # 📱 TWRP Recovery - Unofficial Build
+          
+          ## 🔧 Build Information
+          - **Device**: Samsung Galaxy S23 (${{ matrix.target }})
+          - **Recovery**: TWRP 3.7.1 (Android 12.1)
+          - **Build Date**: ${{ steps.var.outputs.readable_date }}
+          - **Build ID**: ${{ github.run_id }}
+          
+          ## 📦 Installation
+          1. Download the `.tar` file
+          2. Extract to get the `.img.lz4` file
+          3. Flash using Odin or fastboot
+          
+          ## ⚠️ Disclaimer
+          This is an **unofficial** build. Use at your own risk.
+          
+          ---
+          *Built with ❤️ by GitHub Actions*
       env:
         GITHUB_TOKEN: ${{ secrets.TEST }}
