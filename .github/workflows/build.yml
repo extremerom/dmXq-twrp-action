@@ -127,7 +127,7 @@ jobs:
     - name: Publish to github
       uses: softprops/action-gh-release@v1
       with:
-        files: ${{ steps.var.outputs.Outdir }}/twrp-3.7.1_12-0-${{ matrix.target }}-*.img.tar
+        files: ${{ steps.var.outputs.Outdir }}/twrp-3.7.1_12-0-${{ matrix.target }}-${{ steps.var.outputs.timestamp }}.img.tar
         name: TWRP Recovery - Build ${{ steps.var.outputs.timestamp }}
         tag_name: twrp-${{ steps.var.outputs.timestamp }}
         body: |

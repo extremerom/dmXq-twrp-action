@@ -132,7 +132,7 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: | 
-          ${{ steps.var.outputs.Outdir }}/OrangeFox_R12.1-${{ matrix.target }}-*.img.tar
+          ${{ steps.var.outputs.Outdir }}/OrangeFox_R12.1-${{ matrix.target }}-${{ steps.var.outputs.timestamp }}.img.tar
           ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.zip
           ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.img
           ${{ steps.var.outputs.Outdir }}/out/target/product/${{ matrix.target }}/OrangeFox-*.md5
