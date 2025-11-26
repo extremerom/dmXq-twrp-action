@@ -8,8 +8,7 @@ on:
   
 jobs:
   build:
-    runs-on: ubuntu-latest
-
+    runs-on: Unica
     environment:
       name: /dev/null
       url: /dev/null
@@ -32,9 +31,6 @@ jobs:
     steps:
     - name: Check out
       uses: actions/checkout@v4
-
-    - name: Cleanup
-      uses: rokibhasansagar/slimhub_actions@main
       
     - name: Set TimeZones
       run: |
