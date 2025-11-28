@@ -97,7 +97,8 @@ compress_image() {
 pack_tar() {
     local image_name="$1"
     local lz4_file="out/target/product/${DEVICE}/${image_name}.img.lz4"
-    local tar_name="OrangeFox_R12.1-${DEVICE}.img.tar"
+    local timestamp=$(TZ=Asia/Ho_Chi_Minh date +%Y%m%d-%H%M%S)
+    local tar_name="OrangeFox_R12.1-${DEVICE}-${timestamp}.img.tar"
 
     if [[ -f "$lz4_file" ]]; then
         cp "$lz4_file" .
