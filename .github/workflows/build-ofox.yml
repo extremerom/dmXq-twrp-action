@@ -8,7 +8,7 @@ on:
   
 jobs:
   build:
-    runs-on: Unica
+    runs-on: rom2
     environment:
       name: /dev/null
       url: /dev/null
@@ -41,7 +41,6 @@ jobs:
     - name: Prepare the environment
       run: |
         sudo apt update
-        sudo apt -y update
         sudo apt -y install ccache gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev lz4 tar libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev python3
       continue-on-error: true
         
@@ -82,11 +81,6 @@ jobs:
         cd ${GITHUB_WORKSPACE}/fox_12.1
         git clone -b OrangeFox https://github.com/extremerom/android_device_samsung_${{ matrix.target }}.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
         
-    - name: Clone common tree
-      run: |
-        cd ${GITHUB_WORKSPACE}/fox_12.1
-        git clone -b android-12.1 https://github.com/extremerom/android_device_samsung_sm8550-common.git device/samsung/sm8550-common > /dev/null 2>&1
-    
     - name: Setup ccache before build
       run: |
         cd ${GITHUB_WORKSPACE}/fox_12.1
