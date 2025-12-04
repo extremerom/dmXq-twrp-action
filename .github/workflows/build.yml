@@ -8,7 +8,7 @@ on:
   
 jobs:
   build:
-    runs-on: Unica
+    runs-on: rom2
 
     environment:
       name: /dev/null
@@ -77,21 +77,12 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}
         repo sync -j$(nproc --all) > /dev/null 2>&1
-        mv -f images/* bootable/recovery/gui/theme/portrait_hdpi/images/
-        mv -f DroidSansMono.ttf bootable/recovery/gui/theme/common/fonts/
-        mv -f portrait.xml bootable/recovery/gui/theme/common/
-        mv -f ui.xml bootable/recovery/gui/theme/portrait_hdpi/
-        ls -al
 
     - name: Clone device tree
       run: |
         cd ${GITHUB_WORKSPACE}
         git clone -b OrangeFox https://github.com/extremerom/android_device_samsung_${{ matrix.target }}.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
         
-    - name: Clone common tree
-      run: |
-        git clone -b android-12.1 https://github.com/extremerom/android_device_samsung_sm8550-common.git device/samsung/sm8550-common > /dev/null 2>&1
-    
     - name: Setup ccache before build
       run: |
         export USE_CCACHE=1
