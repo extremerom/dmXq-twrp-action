@@ -71,12 +71,12 @@ jobs:
         chmod +x *
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        repo init --depth=1 -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp.git -b twrp-16.0
+        repo init --depth=1 -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp.git -b twrp-16.0 -j$(nproc --all)
         
     - name: Repo sync & copy moded stuff
       run: |
         cd ${GITHUB_WORKSPACE}
-        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
+        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune --quiet
 
     - name: Clone device tree
       run: |
