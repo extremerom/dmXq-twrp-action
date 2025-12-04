@@ -164,7 +164,7 @@ info "Setting up build environment..."
 source build/envsetup.sh || error "Failed to source build environment."
 
 info "Lunching target: twrp_${DEVICE}-eng"
-lunch "twrp_${DEVICE}-eng" || error "Lunch failed for device: $DEVICE"
+lunch "twrp_${DEVICE}-ap2a-eng" || error "Lunch failed for device: $DEVICE"
 
 info "Building: $TARGET"
 make -j"$(nproc)" "$TARGET" || error "Build failed for target: $TARGET"
