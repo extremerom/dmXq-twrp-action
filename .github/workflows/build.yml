@@ -46,10 +46,6 @@ jobs:
         sudo apt -y install ccache gperf gcc-multilib gcc-10-multilib g++-multilib g++-10-multilib libc6-dev x11proto-core-dev libx11-dev tree lib32z-dev libgl1-mesa-dev libxml2-utils xsltproc bc ccache lib32readline-dev lib32z1-dev liblz4-tool libncurses5-dev libsdl1.2-dev lz4 tar libxml2 lzop pngcrush schedtool squashfs-tools imagemagick libbz2-dev lzma ncftp qemu-user-static libstdc++-10-dev python3
       continue-on-error: true
         
-    - name: Set Swap Space
-      uses: pierotofy/set-swap-space@master
-      with:
-        swap-size-gb: 1
 
     - name: Install openjdk
       uses: actions/setup-java@v3
@@ -71,13 +67,13 @@ jobs:
         chmod +x *
         git config --global user.name "github-actions[bot]"
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
-        repo init --depth=1 -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp.git -b twrp-16.0
+        repo init -u https://github.com/TWRP-Test/platform_manifest_twrp_aosp.git -b twrp-16.0
         
     - name: Repo sync & copy moded stuff
       run: |
         cd ${GITHUB_WORKSPACE}
-        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
-
+        repo sync -c --no-clone-bundle --optimized-fetch --prune --force-sync -j$(nproc --all)
+        
     - name: Clone device tree
       run: |
         cd ${GITHUB_WORKSPACE}
