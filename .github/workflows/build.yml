@@ -76,7 +76,7 @@ jobs:
     - name: Repo sync & copy moded stuff
       run: |
         cd ${GITHUB_WORKSPACE}
-        repo sync -j$(nproc --all) > /dev/null 2>&1
+        repo sync -c -j$(nproc --all) --force-sync --no-clone-bundle --no-tags --optimized-fetch --prune
 
     - name: Clone device tree
       run: |
