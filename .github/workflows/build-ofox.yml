@@ -79,7 +79,7 @@ jobs:
     - name: Clone device tree
       run: |
         cd ${GITHUB_WORKSPACE}/fox_12.1
-        git clone -b OrangeFox https://github.com/extremerom/android_device_samsung_${{ matrix.target }}.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
+        git clone -b dm2q https://github.com/extremerom/android_device_samsung_sm8550-common-recovery.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
         
     - name: Setup ccache before build
       run: |
