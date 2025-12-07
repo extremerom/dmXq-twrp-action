@@ -71,19 +71,19 @@ jobs:
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         mkdir ${GITHUB_WORKSPACE}/OrangeFox_sync
         cd ${GITHUB_WORKSPACE}/OrangeFox_sync
-        git clone https://gitlab.com/OrangeFox/sync.git # (or, using ssh, "git clone git@gitlab.com:OrangeFox/sync.git")
+        git clone https://github.com/Just-TWRP/OrangeFox_sync.git sync # (or, using ssh, "git clone git@gitlab.com:OrangeFox/sync.git")
         cd ${GITHUB_WORKSPACE}/OrangeFox_sync/sync/
-        ./orangefox_sync.sh --branch 12.1 --path ${GITHUB_WORKSPACE}/fox_12.1 --depth=1
+        ./orangefox_sync.sh --branch 14.1 --path ${GITHUB_WORKSPACE}/fox_14.1 --depth=1
         
 
     - name: Clone device tree
       run: |
-        cd ${GITHUB_WORKSPACE}/fox_12.1
-        git clone -b dm2q https://github.com/extremerom/android_device_samsung_sm8550-common-recovery.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
+        cd ${GITHUB_WORKSPACE}/fox_14.1
+        git clone -b dm2q2 https://github.com/extremerom/android_device_samsung_sm8550-common-recovery.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
         
     - name: Setup ccache before build
       run: |
-        cd ${GITHUB_WORKSPACE}/fox_12.1
+        cd ${GITHUB_WORKSPACE}/fox_14.1
         export USE_CCACHE=1
         export CCACHE_EXEC=/usr/bin/ccache
         ccache --max-size=50G
@@ -99,8 +99,8 @@ jobs:
         ls -la
         pwd
         chmod +x build-ofox.sh
-        cp build-ofox.sh  ${GITHUB_WORKSPACE}/fox_12.1/build-ofox.sh
-        cd ${GITHUB_WORKSPACE}/fox_12.1
+        cp build-ofox.sh  ${GITHUB_WORKSPACE}/fox_14.1/build-ofox.sh
+        cd ${GITHUB_WORKSPACE}/fox_14.1
         ls -la
         pwd
         ./build-ofox.sh ${{ matrix.target }} 1
@@ -113,7 +113,7 @@ jobs:
     - name: Set variables
       run: |
         echo "date=$(TZ=Asia/Ho_Chi_Minh date +%Y-%m-%d-%H:%M:%S)" >> $GITHUB_OUTPUT
-        echo "Outdir=${GITHUB_WORKSPACE}/fox_12.1" >> $GITHUB_OUTPUT
+        echo "Outdir=${GITHUB_WORKSPACE}/fox_14.1" >> $GITHUB_OUTPUT
       id: var
 
     - name: Publish to github
