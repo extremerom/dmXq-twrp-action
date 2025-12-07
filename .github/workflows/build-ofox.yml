@@ -80,7 +80,21 @@ jobs:
       run: |
         cd ${GITHUB_WORKSPACE}/fox_14.1
         git clone -b dm2q2 https://github.com/extremerom/android_device_samsung_sm8550-common-recovery.git device/samsung/${{ matrix.target }} > /dev/null 2>&1
-        
+
+    - name: Update OrangeFox Built-in Magisk
+      run: |
+        git clone https://github.com/ymdzq/twrp_prebuilt ~/twrp_prebuilt
+        cd ${GITHUB_WORKSPACE}/fox_14.1/device/samsung/${{ matrix.target }}
+        if ! grep -q 'FOX_USE_SPECIFIC_MAGISK_ZIP' vendorsetup.sh; then (echo 'export FOX_USE_SPECIFIC_MAGISK_ZIP=~/twrp_prebuilt/Magisk/Magisk.apk'>>vendorsetup.sh && echo "Added FOX_USE_SPECIFIC_MAGISK_ZIP in vendorsetup.sh"); else sed -i 's/.*export FOX_USE_SPECIFIC_MAGISK_ZIP.*/export FOX_USE_SPECIFIC_MAGISK_ZIP=\~\/twrp_prebuilt\/Magisk\/Magisk.apk/' vendorsetup.sh; fi
+
+    - name: Update OrangeFox Built-in magiskboot
+      run: |
+        curl -L --retry 3 $(echo $(curl -s "https://api.github.com/repos/topjohnwu/Magisk/releases?per_page=1&include_prereleases=true") | jq -r '.[0].assets[] | select(.name | test("Magisk-.*\\.apk")) | .browser_download_url') -o Magisk.apk
+        unzip -q Magisk.apk "lib/*/libmagiskboot.so" -d ~/magiskboot
+        cp -f ~/magiskboot/lib/armeabi-v7a/libmagiskboot.so "${GITHUB_WORKSPACE}/fox_14.1/vendor/recovery/prebuilt/arm/magiskboot_updated"
+        cp -f ~/magiskboot/lib/arm64-v8a/libmagiskboot.so "${GITHUB_WORKSPACE}/fox_14.1/vendor/recovery/prebuilt/arm64/magiskboot_updated"
+        cp -f ~/magiskboot/lib/x86_64/libmagiskboot.so "${GITHUB_WORKSPACE}/fox_14.1/vendor/recovery/tools/magiskboot"
+
     - name: Setup ccache before build
       run: |
         cd ${GITHUB_WORKSPACE}/fox_14.1
