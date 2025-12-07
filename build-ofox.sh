@@ -174,7 +174,7 @@ if [[ $source_result -ne 0 ]]; then
 fi
 
 info "Lunching target: twrp_${DEVICE}-eng"
-lunch "twrp_${DEVICE}-eng" || error "Lunch failed for device: $DEVICE"
+lunch "twrp_${DEVICE}-ap2a-eng" || error "Lunch failed for device: $DEVICE"
 
 info "Building: $TARGET"
 mka -j"$(nproc)" adbd "$TARGET" || error "Build failed for target: $TARGET"
