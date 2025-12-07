@@ -71,7 +71,7 @@ jobs:
         git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
         mkdir ${GITHUB_WORKSPACE}/OrangeFox_sync
         cd ${GITHUB_WORKSPACE}/OrangeFox_sync
-        git clone https://github.com/Just-TWRP/OrangeFox_sync.git sync # (or, using ssh, "git clone git@gitlab.com:OrangeFox/sync.git")
+        git clone https://gitlab.com/OrangeFox/sync.git sync # (or, using ssh, "git clone git@gitlab.com:OrangeFox/sync.git")
         cd ${GITHUB_WORKSPACE}/OrangeFox_sync/sync/
         ./orangefox_sync.sh --branch 14.1 --path ${GITHUB_WORKSPACE}/fox_14.1 --depth=1
 
