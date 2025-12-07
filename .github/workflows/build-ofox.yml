@@ -74,8 +74,17 @@ jobs:
         git clone https://github.com/Just-TWRP/OrangeFox_sync.git sync # (or, using ssh, "git clone git@gitlab.com:OrangeFox/sync.git")
         cd ${GITHUB_WORKSPACE}/OrangeFox_sync/sync/
         ./orangefox_sync.sh --branch 14.1 --path ${GITHUB_WORKSPACE}/fox_14.1 --depth=1
-        
 
+    - name: Update bootable/recovery
+      run: |
+        cd ${GITHUB_WORKSPACE}/fox_14.1/bootable/recovery/
+        git pull
+
+    - name: Update vendor/recovery
+      run: |
+        cd ${GITHUB_WORKSPACE}/fox_14.1/vendor/recovery/
+        git pull
+        
     - name: Clone device tree
       run: |
         cd ${GITHUB_WORKSPACE}/fox_14.1
